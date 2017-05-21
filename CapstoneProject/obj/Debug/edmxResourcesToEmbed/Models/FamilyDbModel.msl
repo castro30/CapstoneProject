@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FamilyProjectModelStoreContainer" CdmEntityContainer="FamilyProjectEntities1">
+    <EntitySetMapping Name="Families">
+      <EntityTypeMapping TypeName="FamilyProjectModel.Family">
+        <MappingFragment StoreEntitySet="Family">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="SecondPersonID" ColumnName="SecondPersonID" />
+          <ScalarProperty Name="RID" ColumnName="RID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="FamilyProjectModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="MarriedDate" ColumnName="MarriedDate" />
+          <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+          <ScalarProperty Name="CurrentLocation" ColumnName="CurrentLocation" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecondPersonID" ColumnName="SecondPersonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelationshipKeys">
+      <EntityTypeMapping TypeName="FamilyProjectModel.RelationshipKey">
+        <MappingFragment StoreEntitySet="RelationshipKey">
+          <ScalarProperty Name="RID" ColumnName="RID" />
+          <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionName="FamilyProjectModel.Store.FN_GetGenneration" FunctionImportName="FN_GetGenneration">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FamilyProjectModel.FN_GetGenneration_Result">
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="SecondPersonID" ColumnName="SecondPersonID" />
+          <ScalarProperty Name="RID" ColumnName="RID" />
+          <ScalarProperty Name="Generation" ColumnName="Generation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_PullingRelatives" FunctionName="FamilyProjectModel.Store.SP_PullingRelatives">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FamilyProjectModel.SP_PullingRelatives_Result">
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="SecondPersonID" ColumnName="SecondPersonID" />
+          <ScalarProperty Name="RID" ColumnName="RID" />
+          <ScalarProperty Name="Generation" ColumnName="Generation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

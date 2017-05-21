@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FamilyProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Family">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="PersonID" Type="bigint" Nullable="false" />
+    <Property Name="SecondPersonID" Type="bigint" Nullable="false" />
+    <Property Name="RID" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BirthDate" Type="date" Nullable="false" />
+    <Property Name="MarriedDate" Type="date" />
+    <Property Name="ExpDate" Type="date" />
+    <Property Name="CurrentLocation" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="PhoneNumber" Type="bigint" />
+    <Property Name="SecondPersonID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RelationshipKey">
+    <Key>
+      <PropertyRef Name="RID" />
+    </Key>
+    <Property Name="RID" Type="smallint" Nullable="false" />
+    <Property Name="Relationship" Type="nchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Family_Family1">
+    <End Role="Family" Type="Self.Family" Multiplicity="1" />
+    <End Role="Family1" Type="Self.Family" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Family">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Family1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_PersonID">
+    <End Role="Family" Type="Self.Family" Multiplicity="1" />
+    <End Role="Family1" Type="Self.Family" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Family">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Family1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RelationKey_RID">
+    <End Role="Family" Type="Self.Family" Multiplicity="1" />
+    <End Role="Family1" Type="Self.Family" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Family">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Family1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RelationshipKey_RelationshipKey">
+    <End Role="RelationshipKey" Type="Self.RelationshipKey" Multiplicity="1" />
+    <End Role="RelationshipKey1" Type="Self.RelationshipKey" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="RelationshipKey">
+        <PropertyRef Name="RID" />
+      </Principal>
+      <Dependent Role="RelationshipKey1">
+        <PropertyRef Name="RID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SecondPersonID_SecondPersonID">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Person1" Type="Self.Person" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Person1">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="FN_GetGenneration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserInput" Type="int" Mode="In" />
+    <Parameter Name="UserStatus" Type="int" Mode="In" />
+    <Parameter Name="Increments" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="PersonID" Type="int" />
+          <Property Name="SecondPersonID" Type="int" />
+          <Property Name="RID" Type="int" />
+          <Property Name="Generation" Type="int" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="SP_PullingRelatives" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="FamilyProjectModelStoreContainer">
+    <EntitySet Name="Family" EntityType="Self.Family" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RelationshipKey" EntityType="Self.RelationshipKey" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Family_Family1" Association="Self.FK_Family_Family1">
+      <End Role="Family" EntitySet="Family" />
+      <End Role="Family1" EntitySet="Family" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_PersonID" Association="Self.FK_Person_PersonID">
+      <End Role="Family" EntitySet="Family" />
+      <End Role="Family1" EntitySet="Family" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RelationKey_RID" Association="Self.FK_RelationKey_RID">
+      <End Role="Family" EntitySet="Family" />
+      <End Role="Family1" EntitySet="Family" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RelationshipKey_RelationshipKey" Association="Self.FK_RelationshipKey_RelationshipKey">
+      <End Role="RelationshipKey" EntitySet="RelationshipKey" />
+      <End Role="RelationshipKey1" EntitySet="RelationshipKey" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SecondPersonID_SecondPersonID" Association="Self.FK_SecondPersonID_SecondPersonID">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Person1" EntitySet="Person" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

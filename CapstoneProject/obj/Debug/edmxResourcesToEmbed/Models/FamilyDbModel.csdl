@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FamilyProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <ComplexType Name="FN_GetGenneration_Result">
+    <Property Name="PersonID" Type="Int32" />
+    <Property Name="SecondPersonID" Type="Int32" />
+    <Property Name="RID" Type="Int32" />
+    <Property Name="Generation" Type="Int32" />
+  </ComplexType>
+  <EntityType Name="Family">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="PersonID" Type="Int64" Nullable="false" />
+    <Property Name="SecondPersonID" Type="Int64" Nullable="false" />
+    <Property Name="RID" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Family1" Relationship="Self.FK_Family_Family1" FromRole="Family" ToRole="Family1" />
+    <NavigationProperty Name="Family2" Relationship="Self.FK_Family_Family1" FromRole="Family1" ToRole="Family" />
+    <NavigationProperty Name="Family11" Relationship="Self.FK_Person_PersonID" FromRole="Family" ToRole="Family1" />
+    <NavigationProperty Name="Family3" Relationship="Self.FK_Person_PersonID" FromRole="Family1" ToRole="Family" />
+    <NavigationProperty Name="Family12" Relationship="Self.FK_RelationKey_RID" FromRole="Family" ToRole="Family1" />
+    <NavigationProperty Name="Family4" Relationship="Self.FK_RelationKey_RID" FromRole="Family1" ToRole="Family" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="MarriedDate" Type="DateTime" Precision="0" />
+    <Property Name="ExpDate" Type="DateTime" Precision="0" />
+    <Property Name="CurrentLocation" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="Int64" />
+    <Property Name="SecondPersonID" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Person1" Relationship="Self.FK_SecondPersonID_SecondPersonID" FromRole="Person" ToRole="Person1" />
+    <NavigationProperty Name="Person2" Relationship="Self.FK_SecondPersonID_SecondPersonID" FromRole="Person1" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="RelationshipKey">
+    <Key>
+      <PropertyRef Name="RID" />
+    </Key>
+    <Property Name="RID" Type="Int16" Nullable="false" />
+    <Property Name="Relationship" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="RelationshipKey1" Relationship="Self.FK_RelationshipKey_RelationshipKey" FromRole="RelationshipKey" ToRole="RelationshipKey1" />
+    <NavigationProperty Name="RelationshipKey2" Relationship="Self.FK_RelationshipKey_RelationshipKey" FromRole="RelationshipKey1" ToRole="RelationshipKey" />
+  </EntityType>
+  <Association Name="FK_Family_Family1">
+    <End Role="Family" Type="Self.Family" Multiplicity="1" />
+    <End Role="Family1" Type="Self.Family" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Family">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Family1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_PersonID">
+    <End Role="Family" Type="Self.Family" Multiplicity="1" />
+    <End Role="Family1" Type="Self.Family" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Family">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Family1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RelationKey_RID">
+    <End Role="Family" Type="Self.Family" Multiplicity="1" />
+    <End Role="Family1" Type="Self.Family" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Family">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Family1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SecondPersonID_SecondPersonID">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Person1" Type="Self.Person" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Person1">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RelationshipKey_RelationshipKey">
+    <End Role="RelationshipKey" Type="Self.RelationshipKey" Multiplicity="1" />
+    <End Role="RelationshipKey1" Type="Self.RelationshipKey" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="RelationshipKey">
+        <PropertyRef Name="RID" />
+      </Principal>
+      <Dependent Role="RelationshipKey1">
+        <PropertyRef Name="RID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FamilyProjectEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Families" EntityType="Self.Family" />
+    <EntitySet Name="People" EntityType="Self.Person" />
+    <EntitySet Name="RelationshipKeys" EntityType="Self.RelationshipKey" />
+    <AssociationSet Name="FK_Family_Family1" Association="Self.FK_Family_Family1">
+      <End Role="Family" EntitySet="Families" />
+      <End Role="Family1" EntitySet="Families" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_PersonID" Association="Self.FK_Person_PersonID">
+      <End Role="Family" EntitySet="Families" />
+      <End Role="Family1" EntitySet="Families" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RelationKey_RID" Association="Self.FK_RelationKey_RID">
+      <End Role="Family" EntitySet="Families" />
+      <End Role="Family1" EntitySet="Families" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SecondPersonID_SecondPersonID" Association="Self.FK_SecondPersonID_SecondPersonID">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Person1" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RelationshipKey_RelationshipKey" Association="Self.FK_RelationshipKey_RelationshipKey">
+      <End Role="RelationshipKey" EntitySet="RelationshipKeys" />
+      <End Role="RelationshipKey1" EntitySet="RelationshipKeys" />
+    </AssociationSet>
+    <FunctionImport Name="FN_GetGenneration" IsComposable="true" ReturnType="Collection(FamilyProjectModel.FN_GetGenneration_Result)">
+      <Parameter Name="UserInput" Mode="In" Type="Int32" />
+      <Parameter Name="UserStatus" Mode="In" Type="Int32" />
+      <Parameter Name="Increments" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_PullingRelatives" ReturnType="Collection(FamilyProjectModel.SP_PullingRelatives_Result)" />
+  </EntityContainer>
+  <ComplexType Name="SP_PullingRelatives_Result">
+    <Property Type="Int64" Name="PersonID" Nullable="true" />
+    <Property Type="Int64" Name="SecondPersonID" Nullable="true" />
+    <Property Type="Int16" Name="RID" Nullable="true" />
+    <Property Type="Int32" Name="Generation" Nullable="true" />
+  </ComplexType>
+</Schema>
