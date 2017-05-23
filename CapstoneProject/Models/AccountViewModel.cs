@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CapstoneProject.Models
 {
@@ -59,5 +60,31 @@ namespace CapstoneProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name ="Full Name")]
+        public string PersonName { get; set; }
+
+        [Required]
+        [Display(Name ="Birth Date")]
+        public System.DateTime BirthDate { get; set; }
+
+        [Display(Name = "Married Date")]
+        public Nullable<System.DateTime> MarriedDate { get; set; }
+        
+        [Required]
+        [Display(Name ="Location")]
+        public string CurrentLocation { get; set; }
+
+        [Required]
+        [Display(Name ="Email")]
+        public string Email { get; set; }
+
+        [Display(Name ="Phone Number")]
+        public Nullable<long> PhoneNumber { get; set; }
+
+        public virtual Person Person1 { get; set; }
+        public virtual Person Person2 { get; set; }
     }
 }
+

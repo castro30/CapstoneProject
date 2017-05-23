@@ -23,6 +23,7 @@ namespace CapstoneProject.Models
         public string Email { get; set; }
         public Nullable<long> PhoneNumber { get; set; }
         public long SecondPersonID { get; set; }
+        public string UserName { get; set; }
     
         public virtual Person Person1 { get; set; }
         public virtual Person Person2 { get; set; }

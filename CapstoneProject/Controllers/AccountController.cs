@@ -79,7 +79,16 @@ namespace AccountController.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new ApplicationUser()
+                {
+                    UserName = model.UserName,
+                    PersonName = model.PersonName,
+                    BirthDate = model.BirthDate,
+                    MarriedDate = model.MarriedDate,
+                    CurrentLocation = model.CurrentLocation,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
