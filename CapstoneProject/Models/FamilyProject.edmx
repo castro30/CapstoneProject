@@ -458,7 +458,7 @@ warning 6035: The relationship 'FK_dbo.Person_dbo.AspNetUsers_UserName' has colu
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="FamilyProjectEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="FamilyProjectEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -513,7 +513,7 @@ warning 6035: The relationship 'FK_dbo.Person_dbo.AspNetUsers_UserName' has colu
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FamilyProjectModelStoreContainer" CdmEntityContainer="FamilyProjectEntities3">
+        <EntityContainerMapping StorageEntityContainer="FamilyProjectModelStoreContainer" CdmEntityContainer="FamilyProjectEntities4">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="FamilyProjectModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">

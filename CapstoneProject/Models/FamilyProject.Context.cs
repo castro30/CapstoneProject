@@ -15,10 +15,10 @@ namespace CapstoneProject.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class FamilyProjectEntities3 : DbContext
+    public partial class FamilyProjectEntities4 : DbContext
     {
-        public FamilyProjectEntities3()
-            : base("name=FamilyProjectEntities3")
+        public FamilyProjectEntities4()
+            : base("name=FamilyProjectEntities4")
         {
         }
     
@@ -36,7 +36,7 @@ namespace CapstoneProject.Models
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<RelationshipKey> RelationshipKeys { get; set; }
     
-        [DbFunction("FamilyProjectEntities3", "FN_GetGenneration")]
+        [DbFunction("FamilyProjectEntities4", "FN_GetGenneration")]
         public virtual IQueryable<FN_GetGenneration_Result> FN_GetGenneration(Nullable<int> userInput, Nullable<int> userStatus, Nullable<int> increments)
         {
             var userInputParameter = userInput.HasValue ?
@@ -51,7 +51,7 @@ namespace CapstoneProject.Models
                 new ObjectParameter("Increments", increments) :
                 new ObjectParameter("Increments", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FN_GetGenneration_Result>("[FamilyProjectEntities3].[FN_GetGenneration](@UserInput, @UserStatus, @Increments)", userInputParameter, userStatusParameter, incrementsParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FN_GetGenneration_Result>("[FamilyProjectEntities4].[FN_GetGenneration](@UserInput, @UserStatus, @Increments)", userInputParameter, userStatusParameter, incrementsParameter);
         }
     
         public virtual ObjectResult<SP_PullingRelatives_Result> SP_PullingRelatives()

@@ -82,12 +82,7 @@ namespace AccountController.Controllers
                 var user = new ApplicationUser()
                 {
                     UserName = model.UserName,
-                    PersonName = model.PersonName,
-                    BirthDate = model.BirthDate,
-                    MarriedDate = model.MarriedDate,
-                    CurrentLocation = model.CurrentLocation,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber
+                    Email = model.Email
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
