@@ -12,20 +12,18 @@ namespace CapstoneProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RelationshipKey
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RelationshipKey()
+        public AspNetRole()
         {
-            this.Families = new HashSet<Family>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
-        public short RID { get; set; }
-        public string Relationship { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Family> Families { get; set; }
-        public virtual RelationshipKey RelationshipKey1 { get; set; }
-        public virtual RelationshipKey RelationshipKey2 { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

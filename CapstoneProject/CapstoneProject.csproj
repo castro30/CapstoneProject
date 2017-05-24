@@ -183,36 +183,51 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>FamilyProject.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>FamilyProject.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>FamilyProject.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>FamilyProject.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>FamilyProject.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Family.cs">
-      <DependentUpon>FamilyDbModel.tt</DependentUpon>
+      <DependentUpon>FamilyProject.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FamilyDbModel.Context.cs">
+    <Compile Include="Models\FamilyProject.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyDbModel.Context.tt</DependentUpon>
+      <DependentUpon>FamilyProject.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FamilyDbModel.cs">
+    <Compile Include="Models\FamilyProject.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyDbModel.tt</DependentUpon>
+      <DependentUpon>FamilyProject.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FamilyDbModel.Designer.cs">
+    <Compile Include="Models\FamilyProject.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyDbModel.edmx</DependentUpon>
+      <DependentUpon>FamilyProject.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\FN_GetGenneration_Result.cs">
-      <DependentUpon>FamilyDbModel.tt</DependentUpon>
+      <DependentUpon>FamilyProject.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModel.cs" />
     <Compile Include="Models\Person.cs">
-      <DependentUpon>FamilyDbModel.tt</DependentUpon>
+      <DependentUpon>FamilyProject.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RelationshipKey.cs">
-      <DependentUpon>FamilyDbModel.tt</DependentUpon>
+      <DependentUpon>FamilyProject.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_PullingRelatives_Result.cs">
-      <DependentUpon>FamilyDbModel.tt</DependentUpon>
+      <DependentUpon>FamilyProject.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -224,27 +239,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\FamilyDbModel.Context.tt">
+    <Content Include="Models\FamilyProject.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FamilyDbModel.edmx</DependentUpon>
-      <LastGenOutput>FamilyDbModel.Context.cs</LastGenOutput>
+      <DependentUpon>FamilyProject.edmx</DependentUpon>
+      <LastGenOutput>FamilyProject.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FamilyDbModel.tt">
+    <Content Include="Models\FamilyProject.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FamilyDbModel.edmx</DependentUpon>
-      <LastGenOutput>FamilyDbModel.cs</LastGenOutput>
+      <DependentUpon>FamilyProject.edmx</DependentUpon>
+      <LastGenOutput>FamilyProject.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\FamilyDbModel.edmx">
+    <EntityDeploy Include="Models\FamilyProject.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FamilyDbModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>FamilyProject.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\FamilyDbModel.edmx.diagram">
-      <DependentUpon>FamilyDbModel.edmx</DependentUpon>
+    <Content Include="Models\FamilyProject.edmx.diagram">
+      <DependentUpon>FamilyProject.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

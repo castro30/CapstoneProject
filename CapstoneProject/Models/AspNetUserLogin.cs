@@ -12,15 +12,12 @@ namespace CapstoneProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Family
+    public partial class AspNetUserLogin
     {
-        public long ID { get; set; }
-        public long PersonID { get; set; }
-        public long SecondPersonID { get; set; }
-        public short RID { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public virtual Person Person { get; set; }
-        public virtual RelationshipKey RelationshipKey { get; set; }
-        public virtual Person Person1 { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

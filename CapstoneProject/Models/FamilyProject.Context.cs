@@ -15,10 +15,10 @@ namespace CapstoneProject.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class FamilyProjectEntities1 : DbContext
+    public partial class FamilyProjectEntities3 : DbContext
     {
-        public FamilyProjectEntities1()
-            : base("name=FamilyProjectEntities1")
+        public FamilyProjectEntities3()
+            : base("name=FamilyProjectEntities3")
         {
         }
     
@@ -27,11 +27,16 @@ namespace CapstoneProject.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Family> Families { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<RelationshipKey> RelationshipKeys { get; set; }
     
-        [DbFunction("FamilyProjectEntities1", "FN_GetGenneration")]
+        [DbFunction("FamilyProjectEntities3", "FN_GetGenneration")]
         public virtual IQueryable<FN_GetGenneration_Result> FN_GetGenneration(Nullable<int> userInput, Nullable<int> userStatus, Nullable<int> increments)
         {
             var userInputParameter = userInput.HasValue ?
@@ -46,7 +51,7 @@ namespace CapstoneProject.Models
                 new ObjectParameter("Increments", increments) :
                 new ObjectParameter("Increments", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FN_GetGenneration_Result>("[FamilyProjectEntities1].[FN_GetGenneration](@UserInput, @UserStatus, @Increments)", userInputParameter, userStatusParameter, incrementsParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FN_GetGenneration_Result>("[FamilyProjectEntities3].[FN_GetGenneration](@UserInput, @UserStatus, @Increments)", userInputParameter, userStatusParameter, incrementsParameter);
         }
     
         public virtual ObjectResult<SP_PullingRelatives_Result> SP_PullingRelatives()

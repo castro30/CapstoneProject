@@ -12,15 +12,11 @@ namespace CapstoneProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Family
+    public partial class C__MigrationHistory
     {
-        public long ID { get; set; }
-        public long PersonID { get; set; }
-        public long SecondPersonID { get; set; }
-        public short RID { get; set; }
-    
-        public virtual Person Person { get; set; }
-        public virtual RelationshipKey RelationshipKey { get; set; }
-        public virtual Person Person1 { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

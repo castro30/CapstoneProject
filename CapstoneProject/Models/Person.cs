@@ -14,6 +14,13 @@ namespace CapstoneProject.Models
     
     public partial class Person
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Person()
+        {
+            this.Families = new HashSet<Family>();
+            this.Families1 = new HashSet<Family>();
+        }
+    
         public long PersonID { get; set; }
         public string PersonName { get; set; }
         public System.DateTime BirthDate { get; set; }
@@ -22,10 +29,11 @@ namespace CapstoneProject.Models
         public string CurrentLocation { get; set; }
         public string Email { get; set; }
         public Nullable<long> PhoneNumber { get; set; }
-        public long SecondPersonID { get; set; }
-        public string UserName { get; set; }
+        public string Username { get; set; }
     
-        public virtual Person Person1 { get; set; }
-        public virtual Person Person2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Family> Families { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Family> Families1 { get; set; }
     }
 }
