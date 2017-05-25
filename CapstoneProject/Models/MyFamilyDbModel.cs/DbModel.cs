@@ -21,5 +21,14 @@ namespace CapstoneProject.Models.MyFamilyDbModel
             }
         }
 #endregion
+        public void AddPerson(Person person)
+        {
+            using (var db = new FamilyProjectEntities4())
+            {
+                db.People.Add(person);
+                db.SaveChanges();
+            }
+            
+        }
     }
 }

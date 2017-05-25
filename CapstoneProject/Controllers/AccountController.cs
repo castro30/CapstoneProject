@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using CapstoneProject.Models;
-
+using CapstoneProject.Models.MyFamilyDbModel;
 
 namespace AccountController.Controllers
 {
@@ -27,6 +27,7 @@ namespace AccountController.Controllers
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
+        private DbModel dbmodel { get; set; } = new DbModel();
 
         //
         // GET: /Account/Login
@@ -84,10 +85,22 @@ namespace AccountController.Controllers
                     UserName = model.UserName,
                     Email = model.Email
                 };
+              
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
+                    var person = new Person()
+                    {
+                        PersonName = model.PersonName,
+                        BirthDate = model.BirthDate,
+                        MarriedDate = model.MarriedDate,
+                        CurrentLocation = model.CurrentLocation,
+                        Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
+                        Username = model.UserName
+                    };
+                    dbmodel.AddPerson(person);
                     return RedirectToAction("Index", "Home");
                 }
                 else
