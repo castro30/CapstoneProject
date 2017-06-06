@@ -15,14 +15,14 @@ namespace CapstoneProject.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Famille Connect Description";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Cecely Harwell";
 
             return View();
         }

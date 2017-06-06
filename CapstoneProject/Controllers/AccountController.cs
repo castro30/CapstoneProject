@@ -10,26 +10,28 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using CapstoneProject.Models;
 using CapstoneProject.Models.MyFamilyDbModel;
+using CapstoneProject.Controllers;
 
 namespace AccountController.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+        public AccountController(IDbModel dbmodel)
+            : this(dbmodel, new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        private AccountController(IDbModel dbmodel, UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
+            this.dbmodel = dbmodel;
         }
-
         public UserManager<ApplicationUser> UserManager { get; private set; }
-        private DbModel dbmodel { get; set; } = new DbModel();
+        private IDbModel dbmodel { get; set; }
 
-        //
+
+        #region Login
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -62,7 +64,9 @@ namespace AccountController.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        #endregion
 
+        #region Register
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -85,23 +89,29 @@ namespace AccountController.Controllers
                     UserName = model.UserName,
                     Email = model.Email
                 };
-              
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
+                    //var person = new RegisterViewModel();
                     var person = new Person()
                     {
                         PersonName = model.PersonName,
-                        BirthDate = model.BirthDate,
-                        MarriedDate = model.MarriedDate,
-                        CurrentLocation = model.CurrentLocation,
+                        ExpDate = model.ExpDate
+                    };
+                    var registeredUsers = new tbl_RegisteredUsers()
+                    {
+                        UserName = model.UserName,
                         Email = model.Email,
                         PhoneNumber = model.PhoneNumber,
-                        Username = model.UserName
+                        BirthDate = model.BirthDate,
+                        MarriedDate = model.MarriedDate,
+                        CurrentLocation = model.CurrentLocation
                     };
-                    dbmodel.AddPerson(person);
-                    return RedirectToAction("Index", "Home");
+
+                    dbmodel.AddPerson(person, registeredUsers);
+                    return RedirectToAction("LoggedIndex", "LoggedinHome");
                 }
                 else
                 {
@@ -112,7 +122,26 @@ namespace AccountController.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        /* public ActionResult RegisterFamilyMember()
+         {
+             return View();
+         }
 
+         // POST: /Account/Register a Family Member
+         [HttpPost]
+         [AllowAnonymous]
+         [ValidateAntiForgeryToken]
+         public async Task<ActionResult> RegisterFamily(RegisterFamilyViewModel model)
+         {
+             if (ModelState.IsValid)
+             {
+                 v
+
+             }*/
+
+        #endregion
+
+        #region Disassociate
         //
         // POST: /Account/Disassociate
         [HttpPost]
@@ -131,7 +160,9 @@ namespace AccountController.Controllers
             }
             return RedirectToAction("Manage", new { Message = message });
         }
+        #endregion
 
+        #region Manage
         //
         // GET: /Account/Manage
         public ActionResult Manage(ManageMessageId? message)
@@ -197,7 +228,63 @@ namespace AccountController.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        #endregion
 
+
+
+        #region Profile
+
+        /*public ActionResult Profile()
+        { 
+            var person = dbmodel.PersonProfile(User.Identity.GetUserName());
+            return View(person);
+        }*/
+        public ActionResult RegisteredProfile(RegisterViewModel model)
+        {
+            var registereduser = dbmodel.RegisteredProfile(User.Identity.GetUserName());
+            return View(registereduser);
+        }
+
+        public ActionResult EditProfile()
+        {
+            var person = dbmodel.RegisteredProfile(User.Identity.GetUserName());
+            return View(person);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(RegisterViewModel personmodel)
+        {
+            if (ModelState.IsValid)
+            {
+
+                RegisterViewModel LoggedinPerson = dbmodel.RegisteredProfile(User.Identity.GetUserName());
+                //Person person = personmodel.AsPerson(LoggedinPerson.PersonID, LoggedinPerson.Username);
+                dbmodel.EditPerson(personmodel);
+                return RedirectToAction("Person");
+            }
+            return View(personmodel);
+        }
+        #endregion
+       /* public ActionResult ImmediateFamily(SP_PullingRelatives_Result person, RegisterViewModel personmodel)
+        {
+         var yourid = dbmodel.GetI
+            return View(family);
+        }*/
+        public ActionResult AddFamilyMember()
+        {
+            var user = User.Identity.GetUserName();
+            //var people = dbmodel.GetImmediateFamily(User.Identity.GetUserName());
+            var people = dbmodel.GetImmediateFamily(user);
+            return View(people);
+        }
+       /* public ActionResult ImmediateFamilyDetails(RegisterViewModel model)
+        {
+            var person = dbmodel.RegisteredProfile(User.Identity.GetUserName());
+                return View(person);
+        }*/
+
+        #region ExternalLogin
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
@@ -235,7 +322,9 @@ namespace AccountController.Controllers
                 return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
             }
         }
+        #endregion
 
+        #region LinkLogin
         //
         // POST: /Account/LinkLogin
         [HttpPost]
@@ -262,7 +351,9 @@ namespace AccountController.Controllers
             }
             return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
+        #endregion
 
+        #region ExternalLoginConfirmation
         //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
@@ -300,7 +391,9 @@ namespace AccountController.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
+        #endregion
 
+        #region LogOff
         //
         // POST: /Account/LogOff
         [HttpPost]
@@ -310,7 +403,9 @@ namespace AccountController.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region ExternalLoginFailure
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
@@ -318,7 +413,7 @@ namespace AccountController.Controllers
         {
             return View();
         }
-
+        #endregion
         [ChildActionOnly]
         public ActionResult RemoveAccountList()
         {

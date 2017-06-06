@@ -46,9 +46,39 @@ namespace CapstoneProject.Models
 
     public class RegisterViewModel
     {
+        private readonly object regusers;
+        public RegisterViewModel()
+        {
+
+        }
+
+        public RegisterViewModel(tbl_RegisteredUsers RegisteredUser)
+        {
+            
+            Name = RegisteredUser.Person.PersonName;
+            Id = RegisteredUser.PersonID;
+            UserName = RegisteredUser.UserName;
+            BirthDate = RegisteredUser.BirthDate;
+            MarriedDate = RegisteredUser.MarriedDate;
+            ExpDate = RegisteredUser.Person.ExpDate;
+            CurrentLocation = RegisteredUser.CurrentLocation;
+            Email = RegisteredUser.Email;
+            PhoneNumber = RegisteredUser.PhoneNumber;
+            PersonName = Name;
+            
+        
+
+        }
+
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
+
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Id")]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -67,14 +97,21 @@ namespace CapstoneProject.Models
 
         [Required]
         [Display(Name ="Birth Date")]
-        public System.DateTime BirthDate { get; set; }
+        public System.DateTime? BirthDate { get; set; }
 
         [Display(Name = "Married Date")]
         public Nullable<System.DateTime> MarriedDate { get; set; }
+
+        [Display(Name ="Exp Date")]
+        public Nullable<System.DateTime> ExpDate { get; set; }
         
         [Required]
         [Display(Name ="Location")]
         public string CurrentLocation { get; set; }
+
+        
+        [Display(Name = "Relationship")]
+        public string Relationship { get; set; }
 
         [Required]
         [Display(Name ="Email")]
@@ -83,8 +120,29 @@ namespace CapstoneProject.Models
         [Display(Name ="Phone Number")]
         public Nullable<long> PhoneNumber { get; set; }
 
-        public virtual Person Person1 { get; set; }
-        public virtual Person Person2 { get; set; }
+        
+    }
+
+    public class ImmediateFamilyViewModel
+    {
+        public ImmediateFamilyViewModel(Family PersonID,RegisterViewModel person)
+        {
+
+        }
+    
+        [Required]
+        [Display(Name = "Full Name")]
+        public string PersonName { get; set; }
+
+        [Display(Name = "Exp Date")]
+        public Nullable<System.DateTime> ExpDate { get; set; }
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+        [Required]
+        [StringLength(30)]
+        public string Relation { get; set; }
+
+
     }
 }
 

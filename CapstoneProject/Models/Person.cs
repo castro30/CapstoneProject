@@ -23,17 +23,12 @@ namespace CapstoneProject.Models
     
         public long PersonID { get; set; }
         public string PersonName { get; set; }
-        public System.DateTime BirthDate { get; set; }
-        public Nullable<System.DateTime> MarriedDate { get; set; }
         public Nullable<System.DateTime> ExpDate { get; set; }
-        public string CurrentLocation { get; set; }
-        public string Email { get; set; }
-        public Nullable<long> PhoneNumber { get; set; }
-        public string Username { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Family> Families { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Family> Families1 { get; set; }
+        public virtual tbl_RegisteredUsers tbl_RegisteredUsers { get; set; }
     }
 }

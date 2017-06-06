@@ -15,10 +15,10 @@ namespace CapstoneProject.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class FamilyProjectEntities4 : DbContext
+    public partial class FamilyProjectEntities5 : DbContext
     {
-        public FamilyProjectEntities4()
-            : base("name=FamilyProjectEntities4")
+        public FamilyProjectEntities5()
+            : base("name=FamilyProjectEntities5")
         {
         }
     
@@ -35,8 +35,9 @@ namespace CapstoneProject.Models
         public virtual DbSet<Family> Families { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<RelationshipKey> RelationshipKeys { get; set; }
+        public virtual DbSet<tbl_RegisteredUsers> tbl_RegisteredUsers { get; set; }
     
-        [DbFunction("FamilyProjectEntities4", "FN_GetGenneration")]
+        [DbFunction("FamilyProjectEntities5", "FN_GetGenneration")]
         public virtual IQueryable<FN_GetGenneration_Result> FN_GetGenneration(Nullable<int> userInput, Nullable<int> userStatus, Nullable<int> increments)
         {
             var userInputParameter = userInput.HasValue ?
@@ -51,12 +52,14 @@ namespace CapstoneProject.Models
                 new ObjectParameter("Increments", increments) :
                 new ObjectParameter("Increments", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FN_GetGenneration_Result>("[FamilyProjectEntities4].[FN_GetGenneration](@UserInput, @UserStatus, @Increments)", userInputParameter, userStatusParameter, incrementsParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FN_GetGenneration_Result>("[FamilyProjectEntities5].[FN_GetGenneration](@UserInput, @UserStatus, @Increments)", userInputParameter, userStatusParameter, incrementsParameter);
         }
     
         public virtual ObjectResult<SP_PullingRelatives_Result> SP_PullingRelatives()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_PullingRelatives_Result>("SP_PullingRelatives");
         }
+
+        public System.Data.Entity.DbSet<CapstoneProject.Models.RegisterViewModel> RegisterViewModels { get; set; }
     }
 }

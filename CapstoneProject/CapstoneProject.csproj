@@ -79,6 +79,18 @@
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -137,6 +149,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mvc5, Version=1.2.3.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc5.1.2.3\lib\net45\Unity.Mvc5.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -177,59 +192,66 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IDbModel.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Family.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FamilyProject.Context.cs">
+    <Compile Include="Models\FamilyDBContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyProject.Context.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FamilyProject.cs">
+    <Compile Include="Models\FamilyDBContext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FamilyProject.Designer.cs">
+    <Compile Include="Models\FamilyDBContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyProject.edmx</DependentUpon>
+      <DependentUpon>FamilyDBContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\FN_GetGenneration_Result.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MyFamilyDbModel.cs\DbModel.cs" />
     <Compile Include="Models\IdentityModel.cs" />
+    <Compile Include="Models\NewMemberCheck\IdentityCheck.cs" />
     <Compile Include="Models\Person.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonEditrequestModel.cs" />
     <Compile Include="Models\RelationshipKey.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_PullingRelatives_Result.cs">
-      <DependentUpon>FamilyProject.tt</DependentUpon>
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_RegisteredUsers.cs">
+      <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -241,27 +263,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\FamilyProject.Context.tt">
+    <Content Include="Models\FamilyDBContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FamilyProject.edmx</DependentUpon>
-      <LastGenOutput>FamilyProject.Context.cs</LastGenOutput>
+      <DependentUpon>FamilyDBContext.edmx</DependentUpon>
+      <LastGenOutput>FamilyDBContext.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FamilyProject.tt">
+    <Content Include="Models\FamilyDBContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FamilyProject.edmx</DependentUpon>
-      <LastGenOutput>FamilyProject.cs</LastGenOutput>
+      <DependentUpon>FamilyDBContext.edmx</DependentUpon>
+      <LastGenOutput>FamilyDBContext.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\FamilyProject.edmx">
+    <EntityDeploy Include="Models\FamilyDBContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FamilyProject.Designer.cs</LastGenOutput>
+      <LastGenOutput>FamilyDBContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\FamilyProject.edmx.diagram">
-      <DependentUpon>FamilyProject.edmx</DependentUpon>
+    <Content Include="Models\FamilyDBContext.edmx.diagram">
+      <DependentUpon>FamilyDBContext.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -274,9 +296,15 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Account\RegisteredProfile.cshtml" />
+    <Content Include="Views\Account\AddFamilyMember.cshtml" />
+    <Content Include="Views\Account\ImmediateFamilyDetails.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Content\style.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -301,6 +329,8 @@
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\LoggedinHome\LoggedIndex.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

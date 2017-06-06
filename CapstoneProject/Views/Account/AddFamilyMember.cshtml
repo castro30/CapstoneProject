@@ -1,0 +1,76 @@
+﻿@model IEnumerable<CapstoneProject.Models.RegisterViewModel>
+
+@{
+    ViewBag.Title = "AddFamilyMember";
+}
+
+<h2>Family Members</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Relationship)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarriedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentLocation)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Relationship)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarriedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentLocation)
+        </td>
+        
+        
+    </tr>
+}
+
+</table>
+<div>
+    @Html.ActionLink("Back to Profile", "RegisteredProfile")
+</div>

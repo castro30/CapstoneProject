@@ -1,0 +1,22 @@
+﻿
+@*@{
+    ViewBag.Title = "Home";
+}*@
+
+<h2>@ViewBag.Title</h2>
+<div>
+    Hello User<br />
+    @ViewBag.Number<br />
+    @ViewBag.YesNo<br />
+    @ViewBag.Example<br/>
+    @for(int i = 0; i<ViewBag.Number;i++)
+    {
+        <div>@ViewBag.Example</div>
+    }
+    <br />
+    @if (ViewBag.YesNo == true)
+    {
+        @:@ViewBag.Number<br />@ViewBag.YesNo
+    }
+</div>
+

@@ -1,0 +1,76 @@
+﻿@model CapstoneProject.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "RegisteredProfile";
+}
+
+
+
+<div>
+    <h4>tbl_RegisteredUsers</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarriedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarriedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentLocation)
+        </dd>
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditProfile", new { username = Model.UserName }, new { @class = "btn btn-info" }) 
+    @Html.ActionLink("List Immediate Family", "AddFamilyMember", null , new { @class = "btn btn-success" })
+    
+</p>

@@ -4,20 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a10c507a25d94dea85ee745f67e3cc6f" Name="Diagram1">
+      <Diagram DiagramId="da9d81e1060141c49e37f762a593f181" Name="Diagram1">
         <EntityTypeShape EntityType="FamilyProjectModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FamilyProjectModel.AspNetRole" Width="1.5" PointX="2.75" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FamilyProjectModel.AspNetUserClaim" Width="1.5" PointX="7.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="FamilyProjectModel.AspNetUserLogin" Width="1.5" PointX="7.25" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FamilyProjectModel.AspNetUser" Width="1.5" PointX="5" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="FamilyProjectModel.Family" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="FamilyProjectModel.Person" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyProjectModel.Person" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="FamilyProjectModel.RelationshipKey" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyProjectModel.tbl_RegisteredUsers" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
         <AssociationConnector Association="FamilyProjectModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyProjectModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyProjectModel.FK_dbo_Family_dbo_Person_PersonID" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyProjectModel.FK_dbo_Family_dbo_RelationshipKey_RID" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyProjectModel.FK_dbo_Family_SecondPersonID" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyProjectModel.FK_tbl_RegisteredUsers_PersonID_Person_PersonID" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyProjectModel.FK_RelationshipKey_RelationshipKey" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyProjectModel.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
