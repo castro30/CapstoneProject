@@ -119,11 +119,13 @@ namespace AccountController.Controllers
                 {
                     await SignInAsync(user, isPersistent: false);
                     //var person = new RegisterViewModel();
+
                     var person = new Person()
                     {
                         PersonName = model.PersonName,
                         ExpDate = model.ExpDate
                     };
+
                     var registeredUsers = new tbl_RegisteredUsers()
                     {
                         UserName = model.UserName,
@@ -150,7 +152,8 @@ namespace AccountController.Controllers
                     smtp.Send(m);*/
 
                     dbmodel.AddPerson(person, registeredUsers);
-                    return RedirectToAction("LoggedIndex", "Account");
+
+                    return RedirectToAction("Index", "Home");
 
                 }
                 else
@@ -395,6 +398,8 @@ namespace AccountController.Controllers
                 };
 
                 dbmodel.AddPersonToFamily(null, family);
+
+                //Mail.SendEmail("charwell1234@gmail.com", "Hello", "Body!!!!!");
 
                 return RedirectToAction("AddFamilyMember");
             }

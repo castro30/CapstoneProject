@@ -4,7 +4,7 @@
     ViewBag.Title = "CreateFamilyMember";
 }
 
-<h2>CreateFamilyMember</h2>
+<h2>Choose Your Family Member</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,12 +12,12 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>FamilyPersonModel</h4>
+        <h4></h4>
         <hr />
         <div class="form-group">
             @Html.LabelFor(m => m.PersonId, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.PersonId, Model.People, "<--Select Person-->", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.PersonId, Model.People, "<--Select--", new { @class = "form-control" })
             </div>
         </div>
 
