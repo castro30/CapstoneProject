@@ -1,0 +1,29 @@
+﻿@model CapstoneProject.Models.Person
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonName)
+        </dd>
+  
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Add Family Relation", "AddRelation", new { id = Model.PersonID }, new { @class = "btn btn-info" }) 
+    @Html.ActionLink("List Immediate Family", "AddFamilyMember", new { id = Model.PersonID } , new { @class = "btn btn-success" })
+    
+</p>

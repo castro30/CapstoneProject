@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IDbModel.cs" />
+    <Compile Include="Controllers\SendMailerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -234,9 +235,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FamilyDBContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\FamilyMemberViewModel.cs" />
+    <Compile Include="Models\FamilyPersonModel.cs" />
     <Compile Include="Models\FN_GetGenneration_Result.cs">
       <DependentUpon>FamilyDBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mailmodel.cs" />
     <Compile Include="Models\MyFamilyDbModel.cs\DbModel.cs" />
     <Compile Include="Models\IdentityModel.cs" />
     <Compile Include="Models\NewMemberCheck\IdentityCheck.cs" />
@@ -300,6 +304,8 @@
     <Content Include="Views\Account\RegisteredProfile.cshtml" />
     <Content Include="Views\Account\AddFamilyMember.cshtml" />
     <Content Include="Views\Account\ImmediateFamilyDetails.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Account\CreateFamilyMember.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Content\style.css" />
     <Content Include="Web.config">
@@ -334,6 +340,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\SendMailer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

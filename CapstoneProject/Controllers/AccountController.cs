@@ -75,7 +75,31 @@ namespace AccountController.Controllers
             return View();
         }
 
-        //
+        //// GET: /Account/ConfirmEmail
+        /* [AllowAnonymous]
+         public async Task<ActionResult> ConfirmEmail(string Token, string Email)
+         {
+             ApplicationUser user = this.UserManager.FindById(Token);
+             if (user != null)
+             {
+                 if (user.Email == Email)
+                 {
+                     user.ConfirmedEmail = true;
+                     await UserManager.UpdateAsync(user);
+                     await SignInAsync(user, isPersistent: false);
+                     return RedirectToAction("Index", "Home", new { ConfirmedEmail = user.Email });
+                 }
+                 else
+                 {
+                     return RedirectToAction("Confirm", "Account", new { Email = user.Email });
+                 }
+             }
+             else
+             {
+                 return RedirectToAction("Confirm", "Account", new { Email = "" });
+             }
+         }*/
+
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -109,9 +133,25 @@ namespace AccountController.Controllers
                         MarriedDate = model.MarriedDate,
                         CurrentLocation = model.CurrentLocation
                     };
+                    /*System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                    new System.Net.Mail.MailAddress("sender@mydomain.com", "Web Registration"),
+                    new System.Net.Mail.MailAddress(user.Email));
+                    m.Subject = "Email confirmation";
+                    m.Body = string.Format("Dear {0}" +
+                        "< BR /> Thank you for your registration, " +
+                        "please click on the below link to complete your " +
+                        "registration: < a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
+                       user.UserName, Url.Action("ConfirmEmail", "Account",
+                       new { Token = user.Id, Email = user.Email }, Request.Url.Scheme)) ;
+                    m.IsBodyHtml = true;
+                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.mydomain.com");
+                    smtp.Credentials = new System.Net.NetworkCredential("sender@mydomain.com", "password");
+                    smtp.EnableSsl = true;
+                    smtp.Send(m);*/
 
                     dbmodel.AddPerson(person, registeredUsers);
-                    return RedirectToAction("LoggedIndex", "LoggedinHome");
+                    return RedirectToAction("LoggedIndex", "Account");
+
                 }
                 else
                 {
@@ -138,6 +178,8 @@ namespace AccountController.Controllers
                  v
 
              }*/
+
+
 
         #endregion
 
@@ -234,16 +276,29 @@ namespace AccountController.Controllers
 
         #region Profile
 
-        /*public ActionResult Profile()
-        { 
-            var person = dbmodel.PersonProfile(User.Identity.GetUserName());
-            return View(person);
-        }*/
+        public ActionResult Profile(int? id)
+        {
+            if (id.HasValue)
+            {
+                var person = dbmodel.PersonProfile(id.Value);
+                return View(person);
+            }
+            else
+            {
+                var user = User.Identity.GetUserName();
+                var getRegUser = dbmodel.GetRegisterUser(user);
+                //var people = dbmodel.GetImmediateFamily(User.Identity.GetUserName());
+                var person = dbmodel.GetImmediateFamily(getRegUser.PersonID);
+                return View(person);
+            }
+        }
         public ActionResult RegisteredProfile(RegisterViewModel model)
         {
             var registereduser = dbmodel.RegisteredProfile(User.Identity.GetUserName());
             return View(registereduser);
         }
+
+
 
         public ActionResult EditProfile()
         {
@@ -266,23 +321,85 @@ namespace AccountController.Controllers
             return View(personmodel);
         }
         #endregion
-       /* public ActionResult ImmediateFamily(SP_PullingRelatives_Result person, RegisterViewModel personmodel)
+        /* public ActionResult ImmediateFamily(SP_PullingRelatives_Result person, RegisterViewModel personmodel)
+         {
+          var yourid = dbmodel.GetI
+             return View(family);
+         }*/
+
+        public ActionResult AddFamilyMember(int? id)
         {
-         var yourid = dbmodel.GetI
-            return View(family);
-        }*/
-        public ActionResult AddFamilyMember()
-        {
-            var user = User.Identity.GetUserName();
-            //var people = dbmodel.GetImmediateFamily(User.Identity.GetUserName());
-            var people = dbmodel.GetImmediateFamily(user);
-            return View(people);
+            if (id.HasValue)
+            {
+                //var people = dbmodel.GetImmediateFamily(User.Identity.GetUserName());
+                var people = dbmodel.GetImmediateFamily(id.Value);
+                return View(people);
+            }
+            else
+            {
+                var user = User.Identity.GetUserName();
+                var getRegUser = dbmodel.GetRegisterUser(user);
+                //var people = dbmodel.GetImmediateFamily(User.Identity.GetUserName());
+                var people = dbmodel.GetImmediateFamily(getRegUser.PersonID);
+                return View(people);
+            }
         }
-       /* public ActionResult ImmediateFamilyDetails(RegisterViewModel model)
+        /* public ActionResult ImmediateFamilyDetails(RegisterViewModel model)
+         {
+             var person = dbmodel.RegisteredProfile(User.Identity.GetUserName());
+                 return View(person);
+         }*/
+
+
+        public ActionResult CreateFamilyMember()
         {
-            var person = dbmodel.RegisteredProfile(User.Identity.GetUserName());
-                return View(person);
-        }*/
+            FamilyPersonModel model = new FamilyPersonModel
+            {
+                People = dbmodel.GetAllPeople().Select(x => new SelectListItem
+                {
+                    Text = x.PersonName,
+                    Value = x.PersonID.ToString()
+                }).ToList(),
+
+                Relation = dbmodel.GetRelations().Select(x => new SelectListItem
+                {
+                    Text = x.Relationship,
+                    Value = x.RID.ToString()
+                }).ToList()
+            };
+
+            return View(model);
+        }
+
+        // POST: /Account/New Imediate Problem
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateFamilyMember(FamilyMemberViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+               /* var person = new Person()
+                {
+                    PersonName = model.PersonName,
+                    ExpDate = model.ExpDate,
+
+                };*/
+                var family = new Family()
+                {
+                    PersonID = dbmodel.GetCurrentUserId(User.Identity.Name),
+                    SecondPersonID = model.PersonId,
+                    RID = model.RID,
+                    ID = dbmodel.GetNextFamilyId(),
+                };
+
+                dbmodel.AddPersonToFamily(null, family);
+
+                return RedirectToAction("AddFamilyMember");
+            }
+            return View(model);
+        }
 
         #region ExternalLogin
         //
@@ -428,6 +545,7 @@ namespace AccountController.Controllers
             {
                 UserManager.Dispose();
                 UserManager = null;
+
             }
             base.Dispose(disposing);
         }

@@ -14,6 +14,12 @@ namespace CapstoneProject.Controllers
             List<Person> GetAllPeople();
            // Person PersonProfile(string UserName);
             RegisterViewModel RegisteredProfile(string UserName);
-        List<RegisterViewModel> GetImmediateFamily(string user);
+        IQueryable<RegisterViewModel> GetImmediateFamily(long personID);
+        Person PersonProfile(int id);
+        tbl_RegisteredUsers GetRegisterUser(string user);
+        int GetNextFamilyId();
+        void AddPersonToFamily(Person per, Family family);
+        List<RelationshipKey> GetRelations();
+        long GetCurrentUserId(string user);
     }
 }

@@ -65,6 +65,7 @@ namespace CapstoneProject.Models
             Email = RegisteredUser.Email;
             PhoneNumber = RegisteredUser.PhoneNumber;
             PersonName = Name;
+           
             
         
 
@@ -109,9 +110,11 @@ namespace CapstoneProject.Models
         [Display(Name ="Location")]
         public string CurrentLocation { get; set; }
 
-        
         [Display(Name = "Relationship")]
         public string Relationship { get; set; }
+
+        [Display(Name = "RID")]
+        public short RID { get; set; }
 
         [Required]
         [Display(Name ="Email")]

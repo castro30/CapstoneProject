@@ -7,7 +7,7 @@
 <h2>Family Members</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateFamilyMember")
 </p>
 <table class="table">
     <tr>
@@ -64,6 +64,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CurrentLocation)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Profile", new { id = item.Id })
         </td>
         
         

@@ -8,25 +8,31 @@ using System.Data.Entity;
 
 namespace CapstoneProject.Models.MyFamilyDbModel
 {
-    public class DbModel : IDbModel
+    public class DbModel : IDbModel, IDisposable
     {
         private FamilyProjectEntities5 db;
 
         #region Example Get All People
         public List<Person> GetAllPeople()
         {
-            using (var db = new FamilyProjectEntities5())
-            {
                 var x = db.People.ToList();
                 return x;
-            }
+        }
+
+        public List<RelationshipKey> GetRelations()
+        {
+            var x = db.RelationshipKeys.ToList();
+            return x;
         }
         #endregion
 
+        public DbModel()
+        {
+            db = new FamilyProjectEntities5 ();
+        }
+
         public void AddPerson(Person per, tbl_RegisteredUsers person)
         {
-            using (var db = new FamilyProjectEntities5())
-            {
                 if (per != null)
                 {
                     db.People.Add(per);
@@ -38,54 +44,87 @@ namespace CapstoneProject.Models.MyFamilyDbModel
                 
                 
                 db.SaveChanges();
-            }
+            
         }
 
+        public void AddPersonToFamily(Person per, Family family)
+        {
+            if (per != null)
+            {
+                db.People.Add(per);
+            }
+            if (family != null)
+            {
+                db.Families.Add(family);
+            }
+
+
+            db.SaveChanges();
+        }
+
+            public void Dispose()
+        { Dispose(true); }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db?.Dispose();
+                db = null;
+
+            }
+        }
 
         #region Profile
         public RegisterViewModel RegisteredProfile(string UserName) //RegisteredUser Detail
         {
-            using (var db = new FamilyProjectEntities5())
-            {
+            
                 var reg =  db.tbl_RegisteredUsers.SingleOrDefault(x => x.UserName == UserName);
                 var exchange = new RegisterViewModel(reg);
                 return exchange;
-            }
+            
+        }
+        
+
+        public long GetCurrentUserId(string user) //RegisteredUser Detail
+        {
+
+            var reg = db.tbl_RegisteredUsers.SingleOrDefault(x => x.UserName == user);
+            return reg.PersonID;
         }
 
-      /*  public RegisterViewModel ImmediateRegisteredProfile(string username)
-        {
-            using (var db = new FamilyProjectEntities5())
-            {
-                var newreg = db.tbl_RegisteredUsers.SingleOrDefault(x => x.UserName == UserName);
+        /*  public RegisterViewModel ImmediateRegisteredProfile(string username)
+          {
+                  var newreg = db.tbl_RegisteredUsers.SingleOrDefault(x => x.UserName == UserName);
 
-            }
-        }*/
 
-        /* public Person PersonProfile(string Username)
+          }*/
+
+        public Person PersonProfile(int id)
          {
-             using (var db = new FamilyProjectEntities5())
-             {
-                 long id = from PersonID in db.tbl_RegisteredUsers
-                          where (PersonID.UserName == Username)
-                          select PersonID;
-
-                 return db.People.FirstOrDefault(x => x.PersonID ==id );
-             }
-         }*/
+                 return db.People.FirstOrDefault(x => x.PersonID == id );
+         }
         #endregion
-
-
-
-        public List<RegisterViewModel> GetImmediateFamily(string user)
+        
+        /*public Person NewPerson(int id)
         {
-            using (var db = new FamilyProjectEntities5())
-            {
-                List<RegisterViewModel> reg = new List<RegisterViewModel>();
+            var get = db.People.FirstOrDefault(x => x.PersonID == id);
 
-                var personID = db.tbl_RegisteredUsers
+            return Person;
+        }
+        */
+        public tbl_RegisteredUsers GetRegisterUser(string user)
+        {
+                return db.tbl_RegisteredUsers
+                       .FirstOrDefault(x => x.UserName == user);
+        }
+
+        public IQueryable<RegisterViewModel> GetImmediateFamily(long personID)
+        {
+
+                /*var personID = db.tbl_RegisteredUsers
                     .First(x => x.UserName == user)
-                    .PersonID;
+                    .PersonID;*/
 
                 
                 var list = (from p in db.People
@@ -107,39 +146,43 @@ namespace CapstoneProject.Models.MyFamilyDbModel
                                 BirthDate = ru.BirthDate,
                                 UserName = ru.UserName,
                                 Relationship = rel.Relationship,
+                                RID = rel.RID,
                                 Email = ru.Email,
                                 ExpDate = p.ExpDate,
                                 MarriedDate = ru.MarriedDate
                             })
-                            .ToList();
+                            ;
 
                 return list;
-            }
+            
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public int GetNextFamilyId()
+        {
+            return (int)db.Families.Max(x=>x.ID) + 1;
+        }
+
 
         public void EditPerson(RegisterViewModel person)
         {
-            using (var db = new FamilyProjectEntities5())
-            {
                 db.Entry(person).State = EntityState.Modified;
                 db.SaveChanges();
-
-            }
         }
 
         public void CreatePerson(RegisterViewModel person)
         {
-            using (var db = new FamilyProjectEntities5())
-            {
                 db.Entry(person).State = EntityState.Added;
                 db.SaveChanges();
-            }
         }
 
 
-        public List<Person> FamilyMember(string relation, string searchString)
+      /*  public List<Person> FamilyMember(string relation, string searchString)
         {
-            var person = db.People.AsQueryable();
+            var person = dbm.People.AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -147,6 +190,6 @@ namespace CapstoneProject.Models.MyFamilyDbModel
             }
             
             return person.ToList();
-        }
+        }*/
     }
 }
