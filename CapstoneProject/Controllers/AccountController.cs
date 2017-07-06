@@ -153,6 +153,15 @@ namespace AccountController.Controllers
 
                     dbmodel.AddPerson(person, registeredUsers);
 
+                    /*if (!string.IsNullOrWhiteSpace(model.Email))
+                    {
+                        string message = @" Thank you for registering for Famille Connect. 
+
+Famille Connect is a safe place for families to share information and connect with other family members. Check out the Events Page to find out Upcomming event.";
+
+                        Mail.SendEmail(model.Email, "Welcome to Famille Connect", message);
+                    }*/
+
                     return RedirectToAction("Index", "Home");
 
                 }
